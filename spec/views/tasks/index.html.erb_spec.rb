@@ -10,14 +10,16 @@ describe "/tasks/index.html.erb" do
         :project_id => "1",
         :done => false,
         :feedback => false,
-        :priority => "1"
+        :priority => "1",
+        :active => true
       ),
       stub_model(Task,
         :description => "value for description",
         :project_id => "1",
         :done => false,
         :feedback => false,
-        :priority => "1"
+        :priority => "1",
+        :active => true
       )
     ]
   end
@@ -29,6 +31,7 @@ describe "/tasks/index.html.erb" do
     response.should have_tag("tr>td", "false", 2)
     response.should have_tag("tr>td", "false", 2)
     response.should have_tag("tr>td", "1", 2)
+    response.should have_tag("tr>td", "true", 2)
   end
 end
 

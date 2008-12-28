@@ -7,6 +7,7 @@
     <th>Done</th>
     <th>Feedback</th>
     <th>Priority</th>
+    <th>Active</th>
   </tr>
 
 <% for task in @tasks %>
@@ -16,6 +17,7 @@
     <td><%=h task.done %></td>
     <td><%=h task.feedback %></td>
     <td><%=h task.priority %></td>
+    <td><%=h task.active %></td>
     <td><%= link_to 'Show', task %></td>
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
     <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>

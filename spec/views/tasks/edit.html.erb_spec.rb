@@ -9,7 +9,8 @@ describe "/tasks/edit.html.erb" do
       :description => "value for description",
       :done => false,
       :feedback => false,
-      :priority => "1"
+      :priority => "1",
+      :active => true
     )
   end
 
@@ -21,6 +22,7 @@ describe "/tasks/edit.html.erb" do
       with_tag('input#task_done[name=?]', "task[done]")
       with_tag('input#task_feedback[name=?]', "task[feedback]")
       with_tag('input#task_priority[name=?]', "task[priority]")
+      with_tag("input#task_active[name=?]", "task[active]")
     end
   end
 end

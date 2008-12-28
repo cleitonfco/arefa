@@ -8,7 +8,8 @@ describe "/tasks/show.html.erb" do
       :description => "value for description",
       :done => false,
       :feedback => false,
-      :priority => "1"
+      :priority => "1",
+      :active => true
     )
   end
 
@@ -18,6 +19,7 @@ describe "/tasks/show.html.erb" do
     response.should have_text(/als/)
     response.should have_text(/als/)
     response.should have_text(/1/)
+    response.should have_text(/rue/)
   end
 end
 
