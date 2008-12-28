@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Task do
   before(:each) do
     @valid_attributes = {
-      :text => "value for text",
+      :description => "value for description",
       :project_id => "1",
       :done => false,
       :feedback => false,
@@ -15,40 +15,23 @@ describe Task do
     Task.create!(@valid_attributes)
   end
 
-  it "should valid presence of text" do
+  it "should valid presence of description" do
     task = Task.new
     task.should_not be_valid
-    task.errors.on(:text).should == "O Texto não pode ser vazio."
+    task.should have(1).error_on(:description)
   end
 
-  it "should valid presence of project" do
+  it "should not be a priority below the acceptable" do
     task = Task.new
+    task.priority = -1
     task.should_not be_valid
-    task.errors.on(:project_id).should == "O Projeto não pode ser vazio."
+    task.should have(1).error_on(:priority)
   end
 
-  it "should valid presence of done" do
+  it "should not be a priority over the acceptable" do
     task = Task.new
-    task.should_not be_valid
-    task.errors.on(:done).should == "A Conclusão da Tarefa não pode ser vazia (verdadeiro/falso)."
-  end
-
-  it "should valid presence of feedback" do
-    task = Task.new
-    task.should_not be_valid
-    task.errors.on(:feedback).should == "O Feedback da Tarefa não pode ser vazio (verdadeiro/falso)."
-  end
-
-  it "should valid presence of priority" do
-    task = Task.new
-    task.should_not be_valid
-    task.errors.on(:priority).should_have "A prioridade não pode ser vazia."
-  end
-
-  it "should valid range of priority" do
-    task = Task.new
-    task.should_not be_valid
-    task.errors.on(:priority).should == "A prioridade deve ser um valor entre 1 e 3."
+    task.priority = 3
+    task.should have(1).error_on(:priority)
   end
 
 end

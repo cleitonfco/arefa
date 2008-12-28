@@ -1,0 +1,28 @@
+<p>
+  <b>Description:</b>
+  <%=h @task.description %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%=h @task.project_id %>
+</p>
+
+<p>
+  <b>Done:</b>
+  <%=h @task.done %>
+</p>
+
+<p>
+  <b>Feedback:</b>
+  <%=h @task.feedback %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%=h @task.priority %>
+</p>
+
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

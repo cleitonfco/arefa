@@ -5,14 +5,16 @@ describe "/tasks/index.html.erb" do
   
   before(:each) do
     assigns[:tasks] = [
-      stub_model(Tasks,
-        :text => "value for text",
+      stub_model(Task,
+        :description => "value for description",
+        :project_id => "1",
         :done => false,
         :feedback => false,
         :priority => "1"
       ),
-      stub_model(Tasks,
-        :text => "value for text",
+      stub_model(Task,
+        :description => "value for description",
+        :project_id => "1",
         :done => false,
         :feedback => false,
         :priority => "1"
@@ -22,9 +24,10 @@ describe "/tasks/index.html.erb" do
 
   it "should render list of tasks" do
     render "/tasks/index.html.erb"
-    response.should have_tag("tr>td", "value for text", 2)
-    response.should have_tag("tr>td", false, 2)
-    response.should have_tag("tr>td", false, 2)
+    response.should have_tag("tr>td", "value for description", 2)
+    response.should have_tag("tr>td", "1", 2)
+    response.should have_tag("tr>td", "false", 2)
+    response.should have_tag("tr>td", "false", 2)
     response.should have_tag("tr>td", "1", 2)
   end
 end

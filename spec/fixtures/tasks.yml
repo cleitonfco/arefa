@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: MyString
+  project_id: 1
+  done: false
+  feedback: false
+  priority: 1
+
+two:
+  description: MyString
+  project_id: 1
+  done: false
+  feedback: false
+  priority: 1

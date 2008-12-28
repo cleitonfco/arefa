@@ -4,9 +4,9 @@ describe "/tasks/edit.html.erb" do
   include TasksHelper
   
   before(:each) do
-    assigns[:tasks] = @tasks = stub_model(Tasks,
+    assigns[:task] = @task = stub_model(Task,
       :new_record? => false,
-      :text => "value for text",
+      :description => "value for description",
       :done => false,
       :feedback => false,
       :priority => "1"
@@ -16,11 +16,11 @@ describe "/tasks/edit.html.erb" do
   it "should render edit form" do
     render "/tasks/edit.html.erb"
     
-    response.should have_tag("form[action=#{tasks_path(@tasks)}][method=post]") do
-      with_tag('input#tasks_text[name=?]', "tasks[text]")
-      with_tag('input#tasks_done[name=?]', "tasks[done]")
-      with_tag('input#tasks_feedback[name=?]', "tasks[feedback]")
-      with_tag('input#tasks_priority[name=?]', "tasks[priority]")
+    response.should have_tag("form[action=#{task_path(@task)}][method=post]") do
+      with_tag('input#task_description[name=?]', "task[description]")
+      with_tag('input#task_done[name=?]', "task[done]")
+      with_tag('input#task_feedback[name=?]', "task[feedback]")
+      with_tag('input#task_priority[name=?]', "task[priority]")
     end
   end
 end
