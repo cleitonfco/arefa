@@ -70,4 +70,38 @@ describe Task do
     }.should change(Task, :count).by(-1)
   end
 
+  it "should be active on create" do
+    task = Task.create!({:description => "Description", :project_id => "1"})
+    task.active.should be_true
+  end
+
+  it "should have normal priority (value 1) on create" do
+    task = Task.create!({:description => "Description", :project_id => "1"})
+    task.priority.should == 1
+  end
+
+  it "should be markable as done" do
+    task = Task.create!({:description => "Description", :project_id => "1"})
+    task.mark_as_done
+    task.done.should be_true
+  end
+
+  it "should be markable as done only if active" do
+    task = Task.create!({:description => "Description", :project_id => "1", :active => false})
+    task.mark_as_done
+    task.done.should be_false
+  end
+
+  it "should be markable as reopened" do
+    task = Task.create!({:description => "Description", :project_id => "1", :done => true})
+    task.reopen
+    task.done.should be_false
+  end
+
+  it "should be markable as reopened only if active" do
+    task = Task.create!({:description => "Description", :project_id => "1", :done => true, :active => false})
+    task.reopen
+    task.done.should be_true
+  end
+
 end

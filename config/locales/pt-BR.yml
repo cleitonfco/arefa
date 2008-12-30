@@ -115,6 +115,7 @@ pt-BR:
         done: "Concluído"
         feedback: "Feedback"
         priority: "Prioridade"
+        active: "Ativo"
 
   task:
     errors:

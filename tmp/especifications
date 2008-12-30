@@ -1,0 +1,29 @@
+Specs
+
+- Tasks
+  # deve ter texto
+  # deve pertencer a um projeto
+  # deve ter um estado ativo ao ser criado
+  *** pode ter comentários
+  *** pode ter tags
+  *** não pode pertencer a mais de um projeto (em Project)
+  # não pode ser movida de projeto
+  *** deve ser atribuída a alguém ao ser criada
+  *** pode ser reatribuida
+  *** não pode ser atribuída a dois ou mais usuários ao mesmo tempo
+  * pode ser suspensa e ativada
+  # pode ser marcada como concluída
+  # não pode ser concluida sem estar ativa
+  # pode ser reaberta
+  # não pode ser reaberta sem estar ativa
+  * pode pedir feedback
+  * pode deixar o feedback
+  * deve ter uma e apenas uma prioridade
+  # deve ter prioridade normal se criada sem prioridade
+
+- Projects
+  * deve ter nome
+  * 
+
+
+

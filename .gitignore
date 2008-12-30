@@ -1,5 +1,4 @@
 config/database.yml
 coverage
 log/*.log
-tmp/spec.lixo
 sample.markdown
