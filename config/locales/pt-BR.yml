@@ -116,3 +116,6 @@ pt-BR:
         feedback: "Feedback"
         priority: "Prioridade"
 
+  task:
+    errors:
+      project: "O Projeto não pode ser alterado."
