@@ -3,27 +3,29 @@ Specs
 - Tasks
   # deve ter texto
   # deve pertencer a um projeto
-  # deve ter um estado ativo ao ser criado
-  *** pode ter comentários
-  *** pode ter tags
-  *** não pode pertencer a mais de um projeto (em Project)
+  # deve estar ativo ao ser criado
   # não pode ser movida de projeto
-  *** deve ser atribuída a alguém ao ser criada
-  *** pode ser reatribuida
-  *** não pode ser atribuída a dois ou mais usuários ao mesmo tempo
-  * pode ser suspensa e ativada
+  # pode ser suspensa e ativada
   # pode ser marcada como concluída
   # não pode ser concluida sem estar ativa
   # pode ser reaberta
   # não pode ser reaberta sem estar ativa
-  * pode pedir feedback
-  * pode deixar o feedback
-  * deve ter uma e apenas uma prioridade
+  # pode pedir feedback
+  # pode deixar o feedback
   # deve ter prioridade normal se criada sem prioridade
+  * pode ter comentários
+  * pode ter tags
+  * não pode pertencer a mais de um projeto (em Project)
+  * deve ser atribuída a alguém ao ser criada
+  * pode ser reatribuida
+  * não pode ser atribuída a dois ou mais usuários ao mesmo tempo
+  * deve ter uma e apenas uma prioridade
 
 - Projects
-  * deve ter nome
-  * 
+  # deve ter nome
+  # deve estar ativo ao ser criado
+  # deve ser privado ao ser criado
+  # pode ser ativada ou suspensa
 
 
 
