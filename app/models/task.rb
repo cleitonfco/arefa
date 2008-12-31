@@ -6,12 +6,24 @@ class Task < ActiveRecord::Base
     errors.add(:project_id, I18n.t("task.errors.project")) if ( self.project_id != @project_id ) 
   end
 
-  def mark_as_done
+  def mark_done
     self.done = true if (!self.done && self.active)
   end
 
   def reopen
     self.done = false if (self.done && self.active)
+  end
+
+  def mark_feedback
+    self.feedback = true if (!self.feedback && self.active)
+  end
+
+  def unmark_feedback
+    self.feedback = false if (self.feedback && self.active)
+  end
+
+  def change_active
+    self.active = !self.active
   end
 
 end
