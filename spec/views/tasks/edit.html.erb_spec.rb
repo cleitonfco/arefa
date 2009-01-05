@@ -4,6 +4,8 @@ describe "/tasks/edit.html.erb" do
   include TasksHelper
   
   before(:each) do
+    @project = mock_model(Project, :id => "1")
+    assigns[:project] = @project
     assigns[:task] = @task = stub_model(Task,
       :new_record? => false,
       :description => "value for description",
@@ -17,7 +19,7 @@ describe "/tasks/edit.html.erb" do
   it "should render edit form" do
     render "/tasks/edit.html.erb"
     
-    response.should have_tag("form[action=#{task_path(@task)}][method=post]") do
+    response.should have_tag("form[action=#{project_task_path(@project.id, @task.id)}][method=post]") do
       with_tag('input#task_description[name=?]', "task[description]")
       with_tag('input#task_done[name=?]', "task[done]")
       with_tag('input#task_feedback[name=?]', "task[feedback]")

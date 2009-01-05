@@ -4,6 +4,8 @@ describe "/tasks/index.html.erb" do
   include TasksHelper
   
   before(:each) do
+    @project = mock_model(Project, :id => "1")
+    assigns[:project] = @project
     assigns[:tasks] = [
       stub_model(Task,
         :description => "value for description",
