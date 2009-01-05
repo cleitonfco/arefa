@@ -29,9 +29,14 @@ describe Task do
   end
 
   it "should not change project" do
-    @valid_task.project_id = "2"
+    @valid_task.attributes = {:project_id => "2"}
     @valid_task.should_not be_valid
     @valid_task.should have(1).error_on(:project_id)
+  end
+
+  it "should update when haven't project" do
+    @valid_task.attributes = {:description => "other value for description", :done => true}
+    @valid_task.should be_valid
   end
 
   it "should not be a priority below the acceptable" do

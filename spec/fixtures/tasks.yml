@@ -6,6 +6,7 @@ one:
   done: false
   feedback: false
   priority: 1
+  active: true
 
 two:
   description: MyString
@@ -13,3 +14,4 @@ two:
   done: false
   feedback: false
   priority: 1
+  active: true

@@ -6,6 +6,7 @@ describe "/tasks/show.html.erb" do
   before(:each) do
     assigns[:task] = @task = stub_model(Task,
       :description => "value for description",
+      :project_id => "1",
       :done => false,
       :feedback => false,
       :priority => "1",
@@ -14,7 +15,7 @@ describe "/tasks/show.html.erb" do
   end
 
   it "should render attributes in <p>" do
-    render "/tasks/show.html.erb"
+    render "tasks/show.html.erb"
     response.should have_text(/value\ for\ description/)
     response.should have_text(/als/)
     response.should have_text(/als/)

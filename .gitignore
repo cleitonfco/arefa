@@ -2,3 +2,4 @@ config/database.yml
 coverage
 log/*.log
 sample.markdown
+*~

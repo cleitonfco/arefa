@@ -3,9 +3,11 @@
 one:
   name: MyString
   description: MyText
-  puclic: false
+  private: true
+  active: true
 
 two:
   name: MyString
   description: MyText
-  puclic: false
+  private: true
+  active: true

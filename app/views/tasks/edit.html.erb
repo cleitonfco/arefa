@@ -1,15 +1,11 @@
 <h1>Editing task</h1>
 
-<% form_for(@task) do |f| %>
+<% form_for([@project, @task]) do |f| %>
   <%= f.error_messages %>
 
   <p>
     <%= f.label :description %><br />
     <%= f.text_field :description %>
-  </p>
-  <p>
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
   </p>
   <p>
     <%= f.label :done %><br />
@@ -32,5 +28,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Show', project_task_path(@task) %> |
+<%= link_to 'Back', project_tasks_path %>
