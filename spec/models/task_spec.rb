@@ -31,10 +31,10 @@ describe Task do
   end
 
   it "should not change project" do
-    @task = Task.create!(@basic_attributes)
-    @task.attributes = {:project_id => "2"}
-    @task.should_not be_valid
-    @task.should have(1).error_on(:project_id)
+    task = Task.create!(@basic_attributes)
+    task.attributes = {:project_id => "2"}
+    task.should_not be_valid
+    task.should have(1).error_on(:project_id)
   end
 
   it "should update when haven't project" do
@@ -63,9 +63,9 @@ describe Task do
   end
 
   it "should get actives only with named scope" do
-    @task1 = Task.create!(task_attributes)
-    @task2 = Task.create!(task_attributes(:active => false))
-    Task.active.find(:all).should == [@task1]
+    task1 = Task.create!(task_attributes)
+    task2 = Task.create!(task_attributes(:active => false))
+    Task.active.find(:all).should == [task1]
   end
 
   it "should find by id" do
@@ -75,141 +75,141 @@ describe Task do
   end
 
   it "should be active on create" do
-    @task = Task.create!(@basic_attributes)
-    @task.should be_active
+    task = Task.create!(@basic_attributes)
+    task.should be_active
   end
 
   it "should not be done on create" do
-    @task = Task.create!(@basic_attributes)
-    @task.should_not be_done
+    task = Task.create!(@basic_attributes)
+    task.should_not be_done
   end
 
   it "should not be feedback on create" do
-    @task = Task.create!(@basic_attributes)
-    @task.should_not be_feedback
+    task = Task.create!(@basic_attributes)
+    task.should_not be_feedback
   end
 
   it "should have normal priority (value 1) on create" do
-    @task = Task.create!(@basic_attributes)
-    @task.priority.should == 1
+    task = Task.create!(@basic_attributes)
+    task.priority.should == 1
   end
 
   it "should create a activity on create" do
-    @task = Task.create!(@basic_attributes)
-    @activity = Activity.find_by_task_id_and_action(@task.id, "create_task")
-    @activity.detail.should == "criou uma tarefa (#{@task.id})"
+    task = Task.create!(@basic_attributes)
+    activity = Activity.find_by_task_id_and_action(task.id, "create_task")
+    activity.detail.should == "criou uma tarefa (#{task.id})"
   end
 
   describe "NOT DONE" do
 
-    it "should be markable as done definity (when active)" do
-      @task = Task.create!(@basic_attributes)
-      @task.mark_done
-      Task.find(@task.id).should be_done
-      @task.attributes = {:done => false, :active => false}
-      @task.mark_done
-      Task.find(@task.id).should_not be_done
+    it "should be markable as done definitely (when active)" do
+      task = Task.create!(@basic_attributes)
+      task.mark_done
+      Task.find(task.id).should be_done
+      task.attributes = {:done => false, :active => false}
+      task.mark_done
+      Task.find(task.id).should_not be_done
     end
 
     it "should create a activity when mark as done" do
-      @task = Task.create!(@basic_attributes)
-      @task.mark_done
-      @activity = Activity.find_by_task_id_and_action(@task.id, "mark_done")
-      @activity.detail.should == "marcou a tarefa #{@task.id} como concluída"
+      task = Task.create!(@basic_attributes)
+      task.mark_done
+      activity = Activity.find_by_task_id_and_action(task.id, "mark_done")
+      activity.detail.should == "marcou a tarefa #{task.id} como concluída"
     end
 
   end
 
   describe "DONE" do
 
-    it "should be able to reopen definity (when active)" do
-      @task = Task.create!(@basic_attributes.merge(:done => true))
-      @task.reopen
-      Task.find(@task.id).should_not be_done
-      @task.attributes = {:done => true, :active => false}
-      @task.reopen
-      Task.find(@task.id).should be_done
+    it "should be able to reopen definitely (when active)" do
+      task = Task.create!(@basic_attributes.merge(:done => true))
+      task.reopen
+      Task.find(task.id).should_not be_done
+      task.attributes = {:done => true, :active => false}
+      task.reopen
+      Task.find(task.id).should be_done
     end
 
     it "should create a activity when reopen" do
-      @task = Task.create!(@basic_attributes)
-      @task.reopen
-      @activity = Activity.find_by_task_id_and_action(@task.id, "reopen")
-      @activity.detail.should == "reabriu a tarefa #{@task.id}"
+      task = Task.create!(@basic_attributes)
+      task.reopen
+      activity = Activity.find_by_task_id_and_action(task.id, "reopen")
+      activity.detail.should == "reabriu a tarefa #{task.id}"
     end
 
   end
 
   describe "WITHOUT FEEDBACK" do
 
-    it "should be markable as feedback definity (when active)" do
-      @task = Task.create!(@basic_attributes)
-      @task.request_feedback
-      Task.find(@task.id).should be_feedback
-      @task.attributes = {:feedback => false, :active => false}
-      @task.request_feedback
-      Task.find(@task.id).should_not be_feedback
+    it "should be able to request feedback definitely (when active)" do
+      task = Task.create!(@basic_attributes)
+      task.request_feedback
+      Task.find(task.id).should be_feedback
+      task.attributes = {:feedback => false, :active => false}
+      task.request_feedback
+      Task.find(task.id).should_not be_feedback
     end
 
     it "should create a activity when request feedback" do
-      @task = Task.create!(@basic_attributes)
-      @task.request_feedback
-      @activity = Activity.find_by_task_id_and_action(@task.id, "request_feedback")
-      @activity.detail.should == "pediu um feedback para a tarefa #{@task.id}"
+      task = Task.create!(@basic_attributes)
+      task.request_feedback
+      activity = Activity.find_by_task_id_and_action(task.id, "request_feedback")
+      activity.detail.should == "pediu um feedback para a tarefa #{task.id}"
     end
 
   end
 
   describe "WITH FEEDBACK" do
 
-    it "should be unmarkable as feedback definity" do
-      @task = Task.create!(@basic_attributes.merge(:feedback => true))
-      @task.leave_feedback
-      Task.find(@task.id).should_not be_feedback
-      @task.attributes = {:feedback => true, :active => false}
-      @task.leave_feedback
-      Task.find(@task.id).should be_feedback
+    it "should be able to leave feedback definitely" do
+      task = Task.create!(@basic_attributes.merge(:feedback => true))
+      task.leave_feedback
+      Task.find(task.id).should_not be_feedback
+      task.attributes = {:feedback => true, :active => false}
+      task.leave_feedback
+      Task.find(task.id).should be_feedback
     end
 
     it "should create a activity when leave feedback" do
-      @task = Task.create!(@basic_attributes)
-      @task.leave_feedback
-      @activity = Activity.find_by_task_id_and_action(@task.id, "leave_feedback")
-      @activity.detail.should == "retirou o pedido de feedback da tarefa #{@task.id}"
+      task = Task.create!(@basic_attributes)
+      task.leave_feedback
+      activity = Activity.find_by_task_id_and_action(task.id, "leave_feedback")
+      activity.detail.should == "retirou o pedido de feedback da tarefa #{task.id}"
     end
 
   end
 
   describe "ACTIVE" do
 
-    it "should be deactivable definity" do
-      @task = Task.create!(@basic_attributes)
-      @task.deactive
-      Task.find(@task.id).should_not be_active
+    it "should be deactivable definitely" do
+      task = Task.create!(@basic_attributes)
+      task.deactive
+      Task.find(task.id).should_not be_active
     end
 
     it "should create a activity when deactiving" do
-      @task = Task.create!(@basic_attributes)
-      @task.deactive
-      @activity = Activity.find_by_task_id_and_action(@task.id, "deactive")
-      @activity.detail.should == "removeu a tarefa #{@task.id}"
+      task = Task.create!(@basic_attributes)
+      task.deactive
+      activity = Activity.find_by_task_id_and_action(task.id, "deactive")
+      activity.detail.should == "removeu a tarefa #{task.id}"
     end
 
   end
 
   describe "NOT ACTIVE" do
 
-    it "should be reactivable definity" do
-      @task = Task.create!(@basic_attributes.merge(:active => false))
-      @task.reactive
-      Task.find(@task.id).should be_active
+    it "should be reactivable definitely" do
+      task = Task.create!(@basic_attributes.merge(:active => false))
+      task.reactive
+      Task.find(task.id).should be_active
     end
 
     it "should create a activity when deactiving" do
-      @task = Task.create!(@basic_attributes.merge(:active => false))
-      @task.reactive
-      @activity = Activity.find_by_task_id_and_action(@task.id, "reactive")
-      @activity.detail.should == "reativou a tarefa #{@task.id}"
+      task = Task.create!(@basic_attributes.merge(:active => false))
+      task.reactive
+      activity = Activity.find_by_task_id_and_action(task.id, "reactive")
+      activity.detail.should == "reativou a tarefa #{task.id}"
     end
 
   end

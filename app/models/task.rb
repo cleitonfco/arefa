@@ -1,6 +1,5 @@
 class Task < ActiveRecord::Base
   after_create :activity_on_create
-#  before_destroy :activity_on_destroy
   belongs_to :project
   has_many :comments, :dependent => :destroy
   has_many :activities, :dependent => :destroy
