@@ -15,7 +15,7 @@ describe "/projects/edit.html.erb" do
 
   it "should render edit form" do
     render "/projects/edit.html.erb"
-    
+
     response.should have_tag("form[action=#{project_path(@project)}][method=post]") do
       with_tag('input#project_name[name=?]', "project[name]")
       with_tag('textarea#project_description[name=?]', "project[description]")

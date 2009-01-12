@@ -1,28 +1,29 @@
-<p>
-  <b>Description:</b>
-  <%=h @task.description %>
-</p>
+<p class="taskdescription"><%= show_priority(@task.priority) %> <%=h @task.description %></p>
+<%= show_mark_as_done(@task.done) %>
+<%= show_feedback(@task.feedback) %>
+<p class="create"><%= link_to 'Editar', [:edit, @project, @task] %></p>
+<p class="list"><%= link_to 'Listar tarefas', project_tasks_path(@project) %></p>
 
-<p>
-  <b>Done:</b>
-  <%=h @task.done %>
-</p>
+<h3>Adicionar um comentário</h3>
 
-<p>
-  <b>Feedback:</b>
-  <%=h @task.feedback %>
-</p>
+<% form_for([@project, @task, @comment]) do |f| %>
+  <%= f.error_messages %>
+  <p><%= f.text_area :text, :class => "input", :cols => 60, :rows => 3 %></p>
+  <p class="finish"><%= f.submit "Enviar este comentário" %></p>
+<% end %>
 
-<p>
-  <b>Priority:</b>
-  <%=h @task.priority %>
-</p>
+<h3>Atividades</h3>
 
-<p>
-  <b>Active:</b>
-  <%=h @task.active %>
-</p>
-
-
-<%= link_to 'Edit', [:edit, @project, @task] %> |
-<%= link_to 'Back', project_tasks_path(@project) %>
+<ul class="activity" id="activity_list">
+<% for comment in @comments %>
+  <li id="event_<%= comment.id %>" class="event activity">
+    <p class="author"><a href="/users/x">Avatar do Usuário</a></p>
+    <div class="event">
+      <p class="details"><a class="user" href="/users/x">Nome do usuário</a> realizou ação tal <span class="time">há 3 dias atrás</span></p>
+      <div class="comment">
+        <p><%=h comment.text %></p>
+      </div>
+    </div>
+  </li>
+<% end %>
+</ul>

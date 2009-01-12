@@ -1,8 +1,12 @@
 class ProjectsController < ApplicationController
+  layout 'general'
+#  before_filter :login_required
+
   # GET /projects
   # GET /projects.xml
   def index
     @projects = Project.find(:all)
+    @title = "Projetos"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +18,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.xml
   def show
     @project = Project.find(params[:id])
+    @title = "Projeto #{@project.name}"
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +30,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
+    @title = "Novo Projeto"
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +41,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
+    @title = "Projeto #{@project.name}"
   end
 
   # POST /projects
@@ -82,4 +89,5 @@ class ProjectsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end

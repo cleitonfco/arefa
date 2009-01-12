@@ -1,0 +1,20 @@
+* {margin:0; padding:0;}
+body {font:88%/1.3em arial, sans-serif; background:#fff url(/images/bg2.jpg) left top repeat-x; text-align:center;}
+#wrap {margin:0 auto; width:90%; text-align:left;}
+h1 {margin:20px 0;}
+h2, h3 {margin:10px 0;}
+ul {list-style-type:none;}
+a {color:#3354aa; padding:1px;}
+a:hover {text-decoration:none; background-color:#3354aa; color:#fff;}
+a.warning:hover {background-color:transparent; color:#f00;}
+.create, .list, .done, .feedback, .nofeedback {margin:0 10px 10px 0; display:inline; line-height:38px;}
+.create a, .list a, .done a, .feedback a, .nofeedback a {text-decoration:none; -moz-border-radius:4px; -webkit-border-radius:4px; padding:8px 18px; font-size:1.4em; color:#fff;}
+.create a {background-color:#080;}
+.list a {background-color:#35a;}
+.done a {background-color:#FF6000;}
+.feedback a {background-color:#FF6000;}
+.nofeedback a {background-color:#FF6000;}
+.description {font-size:1.2em; padding:10px; border:1px solid #ddd; background-color:#EAF2F5; margin:16px 0;}
+.taskdescription {font-size:1.2em; padding:10px; border:1px solid #ddd; background-color:#FFF8CC; margin:16px 0; -moz-border-radius:4px; -webkit-border-radius:4px;}
+#task_list.task {margin:16px 0;}
+#footer {border-top:2px solid #ddd; margin-top:30px; padding-top:10px;}

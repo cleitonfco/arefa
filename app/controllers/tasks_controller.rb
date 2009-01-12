@@ -1,14 +1,11 @@
 class TasksController < ApplicationController
-  before_filter :load_project
-
-  def load_project
-    @project = Project.find(params[:project_id])
-  end
+  layout 'general'
+  before_filter :load_project#, :login_required
 
   # GET /tasks
   # GET /tasks.xml
   def index
-    @tasks = @project.tasks.find(:all)
+    @tasks = @project.tasks.active.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +16,9 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.xml
   def show
-    @task = @project.tasks.find(params[:id])
+    @task = @project.tasks.active.find(params[:id])
+    @comments = @task.comments.find(:all)
+    @comment = @task.comments.build
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,14 +39,12 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    @task = @project.tasks.find(params[:id])
+    @task = @project.tasks.active.find(params[:id])
   end
 
   # POST /tasks
   # POST /tasks.xml
   def create
-    #@task = Task.new(params[:task])
-    #@task = @project.tasks.create(params[:task])
     @task = @project.tasks.build(params[:task])
 
     respond_to do |format|
@@ -82,12 +79,17 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.xml
   def destroy
-    @task = @project.tasks.find(params[:id])
-    @task.destroy
+    @task = @project.tasks.active.find(params[:id])
+    @task.deactive
 
     respond_to do |format|
       format.html { redirect_to(project_tasks_url(@project)) }
       format.xml  { head :ok }
     end
   end
+
+  protected
+    def load_project
+      @project = Project.find(params[:project_id])
+    end
 end

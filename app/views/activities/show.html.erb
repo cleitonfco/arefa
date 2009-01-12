@@ -1,0 +1,28 @@
+<p>
+  <b>Task:</b>
+  <%=h @activity.task_id %>
+</p>
+
+<p>
+  <b>Responsible user:</b>
+  <%=h @activity.responsible_user %>
+</p>
+
+<p>
+  <b>Detail:</b>
+  <%=h @activity.detail %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%=h @activity.action %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%=h @activity.time %>
+</p>
+
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>

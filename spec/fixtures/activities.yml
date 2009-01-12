@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  task_id: 1
+  responsible_user: 1
+  detail: MyString
+  action: MyString
+  time: 2009-01-10 16:01:24
+
+two:
+  task_id: 1
+  responsible_user: 1
+  detail: MyString
+  action: MyString
+  time: 2009-01-10 16:01:24

@@ -1,28 +1,11 @@
-<h1>Listing tasks</h1>
+<h2><%=h @project.name %></h2>
 
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Done</th>
-    <th>Feedback</th>
-    <th>Priority</th>
-    <th>Active</th>
-  </tr>
-
+<% if @tasks %>
+<ul class="task" id="task_list">
 <% for task in @tasks %>
-  <tr>
-    <td><%=h task.description %></td>
-    <td><%=h task.done %></td>
-    <td><%=h task.feedback %></td>
-    <td><%=h task.priority %></td>
-    <td><%=h task.active %></td>
-    <td><%= link_to 'Show', project_task_path(@project, task) %></td>
-    <td><%= link_to 'Edit', [:edit, @project, task] %></td>
-    <td><%= link_to 'Destroy', project_task_path(@project, task), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= link_to h(task.description), project_task_path(@project, task) %> - <%= link_to 'Excluir', project_task_path(@project, task), :class => 'warning', :confirm => 'Você tem certeza que deseja excluir?', :method => :delete %></li>
 <% end %>
-</table>
+</ul>
+<% end %>
 
-<br />
-
-<%= link_to 'New task', new_project_task_path(@project) %>
+<p class="create"><%= link_to 'Adicionar nova tarefa', new_project_task_path(@project) %></p>

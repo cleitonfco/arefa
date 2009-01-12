@@ -8,24 +8,27 @@ describe TasksController do
   end
   
   before(:each) do
+    @current_user = mock_model(User)
     @project = mock_model(Project, :id => "1")
     Project.should_receive(:find).with(@project.id).and_return(@project)
     @project.stub!(:tasks).and_return([mock_task])
+    @project.tasks.stub!(:active).and_return([mock_task])
   end
 
   describe "responding to GET index" do
 
     it "should expose all tasks as @tasks" do
-      @project.tasks.should_receive(:find).with(:all).and_return([mock_task])
+      @project.tasks.active.should_receive(:find).with(:all).and_return([mock_task])
       get :index, :project_id => @project.id
       assigns[:tasks].should == [mock_task]
+      response.layout.should == 'layouts/general'
     end
 
     describe "with mime type of xml" do
 
       it "should render all tasks as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        @project.tasks.should_receive(:find).with(:all).and_return(tasks = mock("Array of Tasks"))
+        @project.tasks.active.should_receive(:find).with(:all).and_return(tasks = mock("Array of Tasks"))
         tasks.should_receive(:to_xml).and_return("generated XML")
         get :index, :project_id => @project.id
         response.body.should == "generated XML"
@@ -37,17 +40,24 @@ describe TasksController do
 
   describe "responding to GET show" do
 
+    before(:each) do
+      mock_task.stub!(:comments).and_return(mock_model(Comment))
+      mock_task.comments.should_receive(:find).with(:all).and_return([mock_model(Comment)])
+      mock_task.comments.stub!(:build).and_return(mock_model(Comment))
+    end
+
     it "should expose the requested task as @task" do
-      @project.tasks.should_receive(:find).with("37").and_return(mock_task)
+      @project.tasks.active.should_receive(:find).with("37").and_return(mock_task)
       get :show, :id => "37", :project_id => @project.id
       assigns[:task].should equal(mock_task)
+      response.layout.should == 'layouts/general'
     end
     
     describe "with mime type of xml" do
 
       it "should render the requested task as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        @project.tasks.should_receive(:find).with("37").and_return(mock_task)
+        @project.tasks.active.should_receive(:find).with("37").and_return(mock_task)
         mock_task.should_receive(:to_xml).and_return("generated XML")
         get :show, :id => "37", :project_id => @project.id
         response.body.should == "generated XML"
@@ -63,6 +73,7 @@ describe TasksController do
       @project.tasks.should_receive(:build).and_return(mock_task)
       get :new, :project_id => @project.id
       assigns[:task].should equal(mock_task)
+      response.layout.should == 'layouts/general'
     end
 
   end
@@ -70,9 +81,10 @@ describe TasksController do
   describe "responding to GET edit" do
 
     it "should expose the requested task as @task" do
-      @project.tasks.should_receive(:find).with("37").and_return(mock_task)
+      @project.tasks.active.should_receive(:find).with("37").and_return(mock_task)
       get :edit, :id => "37", :project_id => @project.id
       assigns[:task].should equal(mock_task)
+      response.layout.should == 'layouts/general'
     end
 
   end
@@ -176,14 +188,14 @@ describe TasksController do
   describe "responding to DELETE destroy" do
 
     it "should destroy the requested task" do
-      @project.tasks.should_receive(:find).with("37").and_return(mock_task)
-      mock_task.should_receive(:destroy)
+      @project.tasks.active.should_receive(:find).with("37").and_return(mock_task)
+      mock_task.stub!(:deactive).and_return(true)
       delete :destroy, :id => "37", :project_id => @project.id
     end
 
     it "should redirect to the tasks list" do
-      mock_task.stub!(:destroy).and_return(true)
-      @project.tasks.stub!(:find).and_return(mock_task)
+      mock_task.stub!(:deactive).and_return(true)
+      @project.tasks.active.stub!(:find).and_return(mock_task)
       delete :destroy, :id => "1", :project_id => @project.id
       response.should redirect_to(project_tasks_url(@project))
     end

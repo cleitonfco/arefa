@@ -1,23 +1,4 @@
-<p>
-  <b>Name:</b>
-  <%=h @project.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%=h @project.description %>
-</p>
-
-<p>
-  <b>Private:</b>
-  <%=h @project.private %>
-</p>
-
-<p>
-  <b>Active:</b>
-  <%=h @project.active %>
-</p>
-
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<h2><%=h @project.name %></h2>
+<p class="description"><%= show_status(@project.private) %> <%=h @project.description %></p>
+<p class="list"><%= link_to 'Listar tarefas', project_tasks_path(@project) %></p>
+<p class="create"><%= link_to 'Adicionar nova tarefa', new_project_task_path(@project) %></p>

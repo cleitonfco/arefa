@@ -5,13 +5,14 @@ describe ProjectsController do
   def mock_project(stubs={})
     @mock_project ||= mock_model(Project, stubs)
   end
-  
+
   describe "responding to GET index" do
 
     it "should expose all projects as @projects" do
       Project.should_receive(:find).with(:all).and_return([mock_project])
       get :index
       assigns[:projects].should == [mock_project]
+      response.layout.should == 'layouts/general'
     end
 
     describe "with mime type of xml" do
@@ -32,8 +33,10 @@ describe ProjectsController do
 
     it "should expose the requested project as @project" do
       Project.should_receive(:find).with("37").and_return(mock_project)
+      mock_project.stub!(:name)
       get :show, :id => "37"
       assigns[:project].should equal(mock_project)
+      response.layout.should == 'layouts/general'
     end
     
     describe "with mime type of xml" do
@@ -41,6 +44,7 @@ describe ProjectsController do
       it "should render the requested project as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
         Project.should_receive(:find).with("37").and_return(mock_project)
+        mock_project.stub!(:name)
         mock_project.should_receive(:to_xml).and_return("generated XML")
         get :show, :id => "37"
         response.body.should == "generated XML"
@@ -56,6 +60,7 @@ describe ProjectsController do
       Project.should_receive(:new).and_return(mock_project)
       get :new
       assigns[:project].should equal(mock_project)
+      response.layout.should == 'layouts/general'
     end
 
   end
@@ -64,8 +69,10 @@ describe ProjectsController do
   
     it "should expose the requested project as @project" do
       Project.should_receive(:find).with("37").and_return(mock_project)
+      mock_project.stub!(:name)
       get :edit, :id => "37"
       assigns[:project].should equal(mock_project)
+      response.layout.should == 'layouts/general'
     end
 
   end

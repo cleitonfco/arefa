@@ -1,0 +1,28 @@
+<h1>Listing activities</h1>
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Responsible user</th>
+    <th>Detail</th>
+    <th>Action</th>
+    <th>Time</th>
+  </tr>
+
+<% for activity in @activities %>
+  <tr>
+    <td><%=h activity.task_id %></td>
+    <td><%=h activity.responsible_user %></td>
+    <td><%=h activity.detail %></td>
+    <td><%=h activity.action %></td>
+    <td><%=h activity.time %></td>
+    <td><%= link_to 'Show', activity %></td>
+    <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
+    <td><%= link_to 'Destroy', activity, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New activity', new_activity_path %>

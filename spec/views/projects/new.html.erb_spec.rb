@@ -15,12 +15,11 @@ describe "/projects/new.html.erb" do
 
   it "should render new form" do
     render "/projects/new.html.erb"
-    
+
     response.should have_tag("form[action=?][method=post]", projects_path) do
       with_tag("input#project_name[name=?]", "project[name]")
       with_tag("textarea#project_description[name=?]", "project[description]")
       with_tag("input#project_private[name=?]", "project[private]")
-      with_tag("input#project_active[name=?]", "project[active]")
     end
   end
 end

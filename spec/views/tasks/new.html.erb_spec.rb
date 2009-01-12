@@ -19,7 +19,7 @@ describe "/tasks/new.html.erb" do
 
   it "should render new form" do
     render "/tasks/new.html.erb"
-    
+
     response.should have_tag("form[action=?][method=post]", project_tasks_path(@project)) do
       with_tag("input#task_description[name=?]", "task[description]")
       with_tag("input#task_done[name=?]", "task[done]")

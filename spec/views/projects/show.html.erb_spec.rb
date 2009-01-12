@@ -14,10 +14,10 @@ describe "/projects/show.html.erb" do
 
   it "should render attributes in <p>" do
     render "/projects/show.html.erb"
+
     response.should have_text(/value\ for\ name/)
     response.should have_text(/value\ for\ description/)
-    response.should have_text(/als/)
-    response.should have_text(/tru/)
+    response.should have_text(/blic/)
   end
 end
 

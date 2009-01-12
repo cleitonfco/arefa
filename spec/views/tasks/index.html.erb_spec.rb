@@ -5,6 +5,7 @@ describe "/tasks/index.html.erb" do
   
   before(:each) do
     @project = mock_model(Project, :id => "1")
+    @project.stub!(:name).and_return("project name")
     assigns[:project] = @project
     assigns[:tasks] = [
       stub_model(Task,
@@ -28,11 +29,10 @@ describe "/tasks/index.html.erb" do
 
   it "should render list of tasks" do
     render "/tasks/index.html.erb"
-    response.should have_tag("tr>td", "value for description", 2)
-    response.should have_tag("tr>td", "false", 2)
-    response.should have_tag("tr>td", "false", 2)
-    response.should have_tag("tr>td", "1", 2)
-    response.should have_tag("tr>td", "true", 2)
+
+    response.should have_tag("h2", "project name")
+    response.should have_tag("ul>li", "value for description - Excluir")
+    response.should have_tag("p a", "Adicionar nova tarefa")
   end
 end
 
