@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   layout 'general'
-  before_filter :load_project#, :login_required
+  before_filter :load_project, :login_required
 
   # GET /tasks
   # GET /tasks.xml

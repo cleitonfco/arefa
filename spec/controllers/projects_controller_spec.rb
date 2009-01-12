@@ -1,9 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+include AuthenticatedTestHelper
+
 describe ProjectsController do
 
   def mock_project(stubs={})
     @mock_project ||= mock_model(Project, stubs)
+  end
+
+  before(:each) do
+    admin_login
   end
 
   describe "responding to GET index" do

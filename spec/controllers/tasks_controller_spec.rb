@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+include AuthenticatedTestHelper
+
 describe TasksController do
   
   def mock_task(stubs={})
@@ -8,7 +10,7 @@ describe TasksController do
   end
   
   before(:each) do
-    @current_user = mock_model(User)
+    admin_login
     @project = mock_model(Project, :id => "1")
     Project.should_receive(:find).with(@project.id).and_return(@project)
     @project.stub!(:tasks).and_return([mock_task])
