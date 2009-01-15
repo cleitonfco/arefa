@@ -5,7 +5,7 @@ class Task < ActiveRecord::Base
   has_many :activities, :dependent => :destroy
   validates_presence_of :description, :project_id
   validates_inclusion_of :priority, :in => 0..2
-  named_scope :active, :conditions => 'active <> 0'
+  named_scope :active, :conditions => 'active = true'
 
   def validate_on_update
     errors.add(:project_id, I18n.t("task.errors.project")) unless !attribute_changed?("project_id")

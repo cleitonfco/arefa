@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
 
   has_many :activities
+  has_many :projects
+
+  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40

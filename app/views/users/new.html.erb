@@ -1,19 +1,27 @@
-<h1>Sign up as a new user</h1>
+<h1>Cadastre-se como um novo Usuário</h1>
 <% @user.password = @user.password_confirmation = nil %>
 
 <%= error_messages_for :user %>
-<% form_for :user, :url => users_path do |f| -%>
-<p><%= label_tag 'login' %><br/>
-<%= f.text_field :login %></p>
 
-<p><%= label_tag 'email' %><br/>
+<% form_for :user, :url => users_path, :html => { :multipart => true } do |f| -%>
+
+<p><%= f.label :name, 'Nome' %><br/>
+<%= f.text_field :name %></p>
+
+<p><%= f.label :email, 'E-mail' %><br/>
 <%= f.text_field :email %></p>
 
-<p><%= label_tag 'password' %><br/>
+<p><%= f.label :login, 'Login' %><br/>
+<%= f.text_field :login %></p>
+
+<p><%= f.label :password, 'Senha' %><br/>
 <%= f.password_field :password %></p>
 
-<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+<p><%= f.label :password_confirmation, 'Confirmação da Senha' %><br/>
 <%= f.password_field :password_confirmation %></p>
 
-<p><%= submit_tag 'Sign up' %></p>
+<p><%= f.label :photo, 'Foto' %><br/>
+<%= f.file_field :photo %></p>
+
+<p><%= submit_tag 'Cadastrar' %> ou <%= link_to "Cancelar", login_path %></p>
 <% end -%>

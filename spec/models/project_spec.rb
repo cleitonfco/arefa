@@ -6,7 +6,8 @@ describe Project do
       :name => "value for name",
       :description => "value for description",
       :private => true,
-      :active => true
+      :active => true,
+      :user_id => 1
     }.merge(options)
   end
 
@@ -54,12 +55,25 @@ describe Project do
     project.should be_active
   end
 
-  it "should be able to activate and deactivate" do
+  it "should be deactivable definitely" do
     project = Project.create!(:name => "value for name")
-    project.change_active
-    project.should_not be_active
-    project.change_active
-    project.should be_active
+    project.deactive
+    Project.find(project.id).should_not be_active
+  end
+
+  it "should be reactivable definitely" do
+    project = Project.create!(:name => "value for name")
+    project.reactive
+    Project.find(project.id).should be_active
+  end
+
+  it "should return from specific user when find with named scope" do
+    user1 = mock_model User
+    user2 = mock_model User
+
+    project1 = Project.create!(:name => "value for name", :user_id => user1.id)
+    project2 = Project.create!(:name => "value for name", :user_id => user2.id)
+    Project.user(user2.id).should == [project2]
   end
 
 end

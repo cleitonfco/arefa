@@ -20,8 +20,8 @@ module AuthenticatedTestHelper
 
   # mock the current_user method to provide a mock user object to fake login!
   def admin_login
-    current_user = mock_model User
-    current_user.stub!(:has_role?).with('admin').and_return(true)
-    controller.stub!(:current_user).and_return(current_user)
+    @current_user = mock_model User
+    @current_user.stub!(:has_role?).with('admin').and_return(true)
+    controller.stub!(:current_user).and_return(@current_user)
   end
 end

@@ -15,7 +15,7 @@ describe ProjectsController do
   describe "responding to GET index" do
 
     it "should expose all projects as @projects" do
-      Project.should_receive(:find).with(:all).and_return([mock_project])
+      Project.should_receive(:user).with(@current_user).and_return([mock_project])
       get :index
       assigns[:projects].should == [mock_project]
       response.layout.should == 'layouts/general'

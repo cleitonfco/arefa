@@ -20,7 +20,7 @@ describe TasksController do
   describe "responding to GET index" do
 
     it "should expose all tasks as @tasks" do
-      @project.tasks.active.should_receive(:find).with(:all).and_return([mock_task])
+      #@project.tasks.active.should_receive(:find).with(:all).and_return([mock_task])
       get :index, :project_id => @project.id
       assigns[:tasks].should == [mock_task]
       response.layout.should == 'layouts/general'
@@ -30,7 +30,7 @@ describe TasksController do
 
       it "should render all tasks as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        @project.tasks.active.should_receive(:find).with(:all).and_return(tasks = mock("Array of Tasks"))
+        @project.tasks.stub!(:active).and_return(tasks = mock("Array of Tasks"))
         tasks.should_receive(:to_xml).and_return("generated XML")
         get :index, :project_id => @project.id
         response.body.should == "generated XML"

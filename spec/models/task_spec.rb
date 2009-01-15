@@ -62,10 +62,10 @@ describe Task do
     @task.update_attributes(task_attributes).should be_true
   end
 
-  it "should get actives only with named scope" do
+  it "should return actives when find with named scope" do
     task1 = Task.create!(task_attributes)
     task2 = Task.create!(task_attributes(:active => false))
-    Task.active.find(:all).should == [task1]
+    Task.active.should == [task1]
   end
 
   it "should find by id" do

@@ -16,4 +16,11 @@ describe Comment do
     @comment.attributes = comment_attributes
     @comment.save.should be_true
   end
+
+  it "should create a activity on create" do
+    comment = Comment.create!(comment_attributes)
+    activity = Activity.find_by_comment_id_and_action(comment.id, "add_comment")
+    activity.detail.should == "adicionou um comentário à tarefa #{comment.task_id}"
+  end
+
 end
